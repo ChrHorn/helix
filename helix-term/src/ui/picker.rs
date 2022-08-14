@@ -608,7 +608,7 @@ impl<T: Item + 'static> Component for Picker<T> {
 
         // -- Render the contents:
         // subtract area of prompt from top and current item marker " > " from left
-        let inner = inner.clip_top(2).clip_left(3);
+        let inner = inner.clip_top(2).clip_left(1).clip_right(1);
 
         let rows = inner.height;
         let offset = self.cursor - (self.cursor % std::cmp::max(1, rows as usize));
@@ -622,14 +622,8 @@ impl<T: Item + 'static> Component for Picker<T> {
         for (i, (_index, option)) in files.take(rows as usize).enumerate() {
             let is_active = i == (self.cursor - offset);
             if is_active {
-                surface.set_string(
-                    inner.x.saturating_sub(3),
-                    inner.y + i as u16,
-                    " > ",
-                    selected,
-                );
                 surface.set_style(
-                    Rect::new(inner.x, inner.y + i as u16, inner.width, 1),
+                    Rect::new(inner.x - 1, inner.y + i as u16, inner.width + 2, 1),
                     selected,
                 );
             }
