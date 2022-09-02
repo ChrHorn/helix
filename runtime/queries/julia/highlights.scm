@@ -7,12 +7,16 @@
   (block_comment)
 ] @comment
 
-(((identifier) @constant.builtin) (match? @constant.builtin "^(nothing|missing|Inf|NaN)$"))
-(((identifier) @constant.builtin.boolean) (#eq? @constant.builtin.boolean "true"))
-(((identifier) @constant.builtin.boolean) (#eq? @constant.builtin.boolean "false"))
+[
+  (true)
+  (false)
+] @constant.builtin.boolean
 
 (integer_literal) @constant.numeric.integer
 (float_literal) @constant.numeric.float
+(
+  (identifier) @constant.numeric.float
+  (#match? @constant.numeric.float "^(NaN|Inf)(|16|32|64)$"))
 
 (character_literal) @constant.character
 (escape_sequence) @constant.character.escape
@@ -24,6 +28,10 @@
 
 (quote_expression
   (identifier) @string.special.symbol) 
+
+(
+  (identifier) @constant.builtin 
+  (#match? @constant.builtin "^(nothing|missing|undef)$"))
   
 ; -------------------
 ; Modules and Imports
