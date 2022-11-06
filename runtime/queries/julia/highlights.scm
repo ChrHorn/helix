@@ -84,12 +84,9 @@
 (typed_expression
   (identifier) @type . )
 
-(parameterized_identifier
+(parametrized_type_expression
   (identifier) @type)
   
-(type_argument_list
-  (identifier) @type)
-
 (where_clause
   (identifier) @type)
 
@@ -212,6 +209,7 @@
 ] @keyword.control.import
 
 [
+  "as"
   "abstract"
   "baremodule"
   "begin"
